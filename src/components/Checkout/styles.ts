@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.form`
   max-width: 1200px;
   justify-content: center;
   display: flex;
@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   margin-top: 60px;
 `
 
-export const FormContent = styled.form`
+export const FormContent = styled.div`
   display: block;
   width: 50%;
   margin-top: 30px;
@@ -22,12 +22,27 @@ export const FormContent = styled.form`
   }
 
   input {
-    width: 90%;
+    width: 95%;
     margin-bottom: 25px;
   }
 
   button {
     width: 90%;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 95%;
+    background: #f5bd58;
+    padding: 5px;
+    border-radius: 5px;
+    color: #1d2a36;
+    
+    svg {
+      margin-right: 10px;
+    }
   }
 `
 
@@ -38,12 +53,12 @@ export const OrderContent = styled.div`
 `
 
 export const FormGroup = styled.div`
-  width: 90%;
+  width: 100%;
   justify-content: space-between;
   display: flex;
-  
-  input:first-child {
-    margin-right: 10px;
+
+  input {
+    width: 90%;
   }
 `
 

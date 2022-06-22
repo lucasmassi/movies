@@ -29,6 +29,12 @@ export const Content = styled.div`
 `
 
 export const IconContent = styled.div`
+  @media (max-width: 481px) {
+    svg {
+      width: 15px;
+    }
+  }
+
   svg {
     cursor: pointer;
     &:hover {
@@ -48,6 +54,12 @@ export const SearchContent = styled.div`
   input {
     width: 20rem;
     padding: .2rem;
+  }
+
+  @media (max-width: 481px) {
+    input {
+      width: 10rem;
+    }
   }
 `
 

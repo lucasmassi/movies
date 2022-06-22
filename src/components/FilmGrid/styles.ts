@@ -19,6 +19,18 @@ export const Wrapper = styled.div`
   text-align: center;
   margin-top: 30px;
   padding: 50px;
+
+  @media (max-width: 1085px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 867px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 578px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `
 
 export const FilmCard = styled.div`

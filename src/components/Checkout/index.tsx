@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Wrapper, FormContent, OrderContent, FormGroup, Footer, Total, OverflowContent } from './styles'
 import { Button } from '../Button'
-import { MdDelete } from 'react-icons/md'
+import { MdDelete, MdReportProblem } from 'react-icons/md'
 import { Input } from '../Input'
 import { Table } from '../Table'
 import Modal from 'react-modal'
@@ -28,6 +28,17 @@ export function Checkout() {
   const [data, setData] = useState<any>([])
   const [total, setTotal] = useState(0)
   const [isOpenModal, setIsOpenModal] = useState(false)
+  const [hasError, setHasError] = useState(false)
+  const [dataValues, setDataValues] = useState({
+    name: '',
+    cpf: '',
+    phone: '',
+    email: '',
+    cep: '',
+    address: '',
+    city: '',
+    state: '',
+  })
 
   useEffect(() => {
     const data: any = []
@@ -74,24 +85,38 @@ export function Checkout() {
     setIsOpenModal(true);
   }
 
+  function onSubmit(event: any) {
+    event.preventDefault();
+
+    if (dataValues.address && dataValues.cep && dataValues.city && dataValues.cpf
+      && dataValues.email && dataValues.name && dataValues.phone && dataValues.state) {
+        setHasError(false)
+        openModal()
+        return
+      }
+    
+      setHasError(true)
+  }
+
   return (
     <>
-    <Wrapper>
+    <Wrapper onSubmit={onSubmit}>
       <FormContent>
         <h2>Finalizar Compra</h2>
-        <Input required name="name" type="text" placeholder="Nome Completo" />
+        { hasError ? <span><MdReportProblem size={25} />Preencha todos os dados do formulário</span> : '' }
+        <Input name="name" type="text" placeholder="Nome Completo" onChange={(e: any) => setDataValues({ ...dataValues, name: e.target.value }) } />
         <FormGroup>
-          <Input required name="cpf" type="text" placeholder="CPF" />
-          <Input name="phone" type="text" placeholder="Celular" />
+          <Input mask="999.999.999-99" name="cpf" type="text" placeholder="CPF" onChange={(e: any) => setDataValues({ ...dataValues, cpf: e.target.value }) } />
+          <Input mask="(99) 9999-9999" name="phone" type="text" placeholder="Celular" onChange={(e: any) => setDataValues({ ...dataValues, phone: e.target.value }) } />
         </FormGroup>
-        <Input name="email" type="email" placeholder="E-mail" />
+        <Input name="email" type="email" placeholder="E-mail" onChange={(e: any) => setDataValues({ ...dataValues, email: e.target.value }) } />
         <FormGroup>
-          <Input name="cep" type="text" placeholder="CEP" />
-          <Input name="address" type="text" placeholder="Endereço" />
+          <Input mask="99999-999" name="cep" type="text" placeholder="CEP" onChange={(e: any) => setDataValues({ ...dataValues, cep: e.target.value }) } />
+          <Input name="address" type="text" placeholder="Endereço" onChange={(e: any) => setDataValues({ ...dataValues, address: e.target.value }) } />
         </FormGroup>
         <FormGroup>
-          <Input name="city" type="text" placeholder="Cidade" />
-          <Input name="state" type="text" placeholder="Estado" />
+          <Input name="city" type="text" placeholder="Cidade" onChange={(e: any) => setDataValues({ ...dataValues, city: e.target.value }) } />
+          <Input name="state" type="text" placeholder="Estado" onChange={(e: any) => setDataValues({ ...dataValues, state: e.target.value }) } />
         </FormGroup>
       </FormContent>
       <OrderContent>
@@ -104,7 +129,7 @@ export function Checkout() {
             <h2>R$ {total.toFixed(2)}</h2>
           </Total>
         </Footer>
-        <Button type="submit" text="Finalizar" onClick={() => openModal()} />
+        <Button type="submit" text="Finalizar" />
       </OrderContent>
     </Wrapper>
     <Modal
