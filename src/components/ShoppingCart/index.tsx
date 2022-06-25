@@ -1,6 +1,6 @@
 import React from 'react'
-import { MdDelete } from 'react-icons/md'
-import { Wrapper, Header, FilmList, FilmItem, Footer, Total } from './styles'
+import { MdDelete, MdOutlineShoppingCart } from 'react-icons/md'
+import { Wrapper, Header, FilmList, FilmItem, Footer, Total, CartEmpty } from './styles'
 import { Button } from '../Button'
 import { Link } from 'react-router-dom';
 import { ShoppingCartOpenContext } from '../../contexts/shoppingCartOpen'
@@ -41,7 +41,7 @@ export function ShoppingCart() {
     <Wrapper isOpen={isOpen}>
       <Header>
         <h3>Meu carrinho</h3>
-        <button type='button' onClick={() => setItemsCart([])}>Esvaziar</button>
+        {itemsCart.length > 0 ? <button type='button' onClick={() => setItemsCart([])}>Esvaziar</button> : '' }
       </Header>
       <FilmList>
         {itemsCart.map((item: any) => {
@@ -60,13 +60,15 @@ export function ShoppingCart() {
           )
         })}
       </FilmList>
-      <Footer>
-        <Total>
-          <h4>Total: </h4>
-          <h2>R$ { total.toFixed(2) }</h2>
-        </Total>
-        <Link to='/checkout'><Button type="button" text="Finalizar compra" onClick={() => setIsOpen(false)} /></Link>
-      </Footer>
+      {itemsCart.length > 0 ?
+        <Footer>
+          <Total>
+            <h4>Total: </h4>
+            <h2>R$ { total.toFixed(2) }</h2>
+          </Total>
+          <Link to='/checkout'><Button type="button" text="Finalizar compra" onClick={() => setIsOpen(false)} /></Link>
+        </Footer>
+        : <CartEmpty><MdOutlineShoppingCart size={24} />Adicione itens ao seu carrinho!</CartEmpty> }
     </Wrapper>
   )
 }

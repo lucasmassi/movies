@@ -12,10 +12,12 @@ export const Table = ({ columns, data } : { columns: any, data: any }) => {
       </thead>
       <tbody>
         {data.map((item: any) => {
-          return ( 
+          const formattedTitle = item.name.substr(0, 20);
+
+          return (
             <tr key={item.id}>
-              <td><img src={item.image} alt={item.name} /></td>
-              <td>{ item.name }</td>
+              <td><img src={item.image} alt={formattedTitle} /></td>
+              <td>{ item.name.length > 20 ? formattedTitle + '...' : item.name }</td>
               <td>{ item.qtd }</td>
               <td>{ item.price }</td>
               <td>{ item.action }</td>

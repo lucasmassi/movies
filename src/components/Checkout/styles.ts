@@ -87,8 +87,40 @@ export const Total = styled.div`
 export const OverflowContent = styled.div`
   display: block;
   width: 100%;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
   white-space: nowrap;
   max-height: 300px;
+`
+
+export const CartEmpty = styled.div`
+  display: block;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+
+  a {
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: #1d2a36;
+    opacity: .5;
+    transition: .2s;
+
+    svg {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      transition: .2s;
+      opacity: .8;
+    }
+  }
 `

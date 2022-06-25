@@ -107,3 +107,14 @@ export const Total = styled.div`
   color: #1d2a36;
   align-items: baseline;
 `
+
+export const CartEmpty = styled.h3`
+  display: flex;
+  width: 100%;
+  aligm-items: center;
+  opacity: .3;
+
+  svg {
+    margin-right: 10px;
+  }
+`

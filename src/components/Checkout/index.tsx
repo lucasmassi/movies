@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Wrapper, FormContent, OrderContent, FormGroup, Footer, Total, OverflowContent } from './styles'
+import { Wrapper, FormContent, OrderContent, FormGroup, Footer, Total, OverflowContent, CartEmpty } from './styles'
 import { Button } from '../Button'
-import { MdDelete, MdReportProblem } from 'react-icons/md'
+import { MdDelete, MdReportProblem, MdOutlineShoppingCart } from 'react-icons/md'
 import { Input } from '../Input'
 import { Table } from '../Table'
 import Modal from 'react-modal'
 import { Link } from 'react-router-dom';
 import { ItemsCartContext } from '../../contexts/itemsCart';
-import { MoviesContext } from '../../contexts/movies';
 
 const URL_IMAGES = 'https://image.tmdb.org/t/p/original'
 
@@ -24,7 +23,6 @@ const customStyles = {
 
 export function Checkout() {
   const { itemsCart, setItemsCart } = React.useContext(ItemsCartContext)
-  const { setMovies } = React.useContext(MoviesContext)
   const [data, setData] = useState<any>([])
   const [total, setTotal] = useState(0)
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -57,7 +55,7 @@ export function Checkout() {
         name: item.movie.title,
         qtd: item.qtd,
         price: price.toFixed(2),
-        action: <MdDelete size={24} />
+        action: <MdDelete size={24} onClick={() => handleRemoveItem(item.movie.id)} />
       })
 
       total = total + (item.qtd * (item.movie.vote_average*2))
@@ -67,6 +65,7 @@ export function Checkout() {
 
     setTotal(total)
     setData(data)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemsCart])
   
   const columns = [
@@ -98,6 +97,24 @@ export function Checkout() {
       setHasError(true)
   }
 
+  const handleRemoveItem = (movieId: any) => {
+    const newItems: any = [] 
+    
+    itemsCart.map((item: any) => {
+      if (item.movie.id === movieId) {
+        item.qtd = item.qtd - 1
+      }
+
+      if (item.qtd > 0) {
+        newItems.push(item)
+      }
+
+      return item
+    })
+
+    setItemsCart(newItems)
+  }
+
   return (
     <>
     <Wrapper onSubmit={onSubmit}>
@@ -120,23 +137,29 @@ export function Checkout() {
         </FormGroup>
       </FormContent>
       <OrderContent>
-        <OverflowContent>
-          <Table columns={columns} data={data} />
-        </OverflowContent>
-        <Footer>
-          <Total>
-            <h4>Total: </h4>
-            <h2>R$ {total.toFixed(2)}</h2>
-          </Total>
-        </Footer>
-        <Button type="submit" text="Finalizar" />
+        {itemsCart.length > 0 ?
+          <>
+            <OverflowContent>
+              <Table columns={columns} data={data} />
+            </OverflowContent>
+            <Footer>
+              <Total>
+                <h4>Total: </h4>
+                <h2>R$ {total.toFixed(2)}</h2>
+              </Total>
+            </Footer>
+            <Button type="submit" text="Finalizar" />
+          </>
+          : <CartEmpty>
+            <Link to='/'><MdOutlineShoppingCart size={24} />Adicione itens ao seu carrinho</Link>
+          </CartEmpty> }
       </OrderContent>
     </Wrapper>
     <Modal
       isOpen={isOpenModal}
       onRequestClose={closeModal}
       style={customStyles}
-      contentLabel="Example Modal"
+      contentLabel="Sucesso!"
     >
       <h2>Obrigado Uzumaki Naruto</h2>
       <h4>Sua compra foi finalizada com sucesso!</h4>

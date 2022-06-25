@@ -12,6 +12,8 @@ export const Wrapper = styled.table`
   }
 
   td {
+    transition: .2s;
+
     img {
       max-width: 80px;
       border-radius: 3px;
@@ -20,6 +22,11 @@ export const Wrapper = styled.table`
     svg {
       cursor: pointer;
       color: #1d2a36;
+    }
+
+    &:hover {
+      transition: .2s;
+      opacity: .7;
     }
   }
 `
