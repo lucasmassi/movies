@@ -7,6 +7,7 @@ import { Table } from '../Table'
 import Modal from 'react-modal'
 import { Link } from 'react-router-dom';
 import { ItemsCartContext } from '../../contexts/itemsCart';
+import { MoviesContext } from '../../contexts/movies';
 
 const URL_IMAGES = 'https://image.tmdb.org/t/p/original'
 
@@ -23,6 +24,7 @@ const customStyles = {
 
 export function Checkout() {
   const { itemsCart, setItemsCart } = React.useContext(ItemsCartContext)
+  const { movies, setMovies } = React.useContext(MoviesContext)
   const [data, setData] = useState<any>([])
   const [total, setTotal] = useState(0)
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -78,6 +80,8 @@ export function Checkout() {
 
   const closeModal = () => {
     setIsOpenModal(false);
+    setItemsCart([]);
+    setMovies({ ...movies, currentPage: 1, querySearch: '' })
   }
 
   const openModal = () => {
