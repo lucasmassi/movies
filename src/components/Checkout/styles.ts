@@ -8,6 +8,11 @@ export const Wrapper = styled.form`
   padding-left: 20px;
   padding-right: 20px;
   margin-top: 60px;
+
+  @media (max-width: 775px) {
+    display: block;
+    margin-top: 80px;
+  }
 `
 
 export const FormContent = styled.div`
@@ -44,12 +49,22 @@ export const FormContent = styled.div`
       margin-right: 10px;
     }
   }
+
+  @media (max-width: 775px) {
+    width: 100%;
+  }
 `
 
 export const OrderContent = styled.div`
   display: block;
   width: 50%;
   margin-top: 70px;
+
+  @media (max-width: 775px) {
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
 `
 
 export const FormGroup = styled.div`

@@ -12,7 +12,7 @@ export const Table = ({ columns, data } : { columns: any, data: any }) => {
       </thead>
       <tbody>
         {data.map((item: any) => {
-          const formattedTitle = item.name.substr(0, 20);
+          const formattedTitle = item.name.substr(0, 15);
 
           return (
             <tr key={item.id}>

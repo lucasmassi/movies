@@ -21,6 +21,10 @@ export const Wrapper = styled.div.attrs((props: PropWrapper) => ({
   overflow-y: auto;
   white-space: nowrap;
   z-index: 1;
+
+  @media (max-width: 403px) {
+    width: 300px;
+  }
 `
 export const Header = styled.div`
   width: 100%;
@@ -98,6 +102,10 @@ export const Footer = styled.div`
     margin-bottom: 20px;
     margin-top: 20px;
   }
+
+  @media (max-width: 403px) {
+    width: 260px;
+  }
 `
 
 export const Total = styled.div`
@@ -111,7 +119,7 @@ export const Total = styled.div`
 export const CartEmpty = styled.h3`
   display: flex;
   width: 100%;
-  aligm-items: center;
+  align-items: center;
   opacity: .3;
 
   svg {
